@@ -1,0 +1,35 @@
+<html>
+ <%= debug(@array) %>
+<table>
+<tr>
+<td>
+<img src="//68.178.158.222/images/RecycleNJ1.png">
+</td>
+<td>
+<h1>Talkin' Trash</h1>
+<h2>NJ Recycling and Granting Stats</h2>
+</td>
+</tr>
+</table>
+<body>
+<table style="margin-left:50px">
+<tr>
+<td>
+Our project, “Talking Trash,” is an interactive map that shows each county’s recycling rate from the years 2003 – 2010, along with the grant money the state paid to municipalities. Those numbers were added within the county and then divided by county population to give a “grant money per resident” picture.
+ 
+Simply click on the county to see its average recycling percentage along with grant money received per resident.
+
+Bottom line: that the less a county and/ or muni wastes, the more money they make. </br>
+</td>
+</tr>
+<tr>
+<td>
+<img src="//chart.googleapis.com/chart?chxl=0:|2003|2004|2005|2006|2007|2008|2009|2010&chxp=0,0,1,2,3,4,5,6,7&chxr=0,0,10&chxs=0,676767,11.5,0,lt,676767&chxt=x&chs=440x220&cht=lxy&chco=3072F3,FF0000&chds=0,10,0,100,0,10,0,2&chd=t:0,1,2,3,4,5,6,7|49.94,53.15,50.42,52.51,55.77,58.26,56.58,60.98|0,1,2,3,4,5,6,7|0.39,0.55,0.45,0.93,1.76,1.61,0.93,1.47&chdl=Percentage+of+Waste+Recycled|Average+Grant+per+Recycling+Resident&chdlp=b&chls=2,4,1|1&chma=5,5,5,25&chtt=NJ+State+Waste+Recycling+and+Average+Grants+Awarded" >
+</td>
+</tr>
+<% if line %>
+</table>
+
+</body>
+</html>
+

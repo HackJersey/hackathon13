@@ -1,0 +1,2 @@
+require "./green"
+run GreenFootprint

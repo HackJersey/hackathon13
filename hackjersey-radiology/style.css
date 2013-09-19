@@ -1,0 +1,34 @@
+/**
+* Stylesheet
+* @author: Jenn Schiffer
+*/
+
+/* Colors */
+body { color: #333; }
+a { color: #339999; }
+a:hover { color: #cc6666; }
+
+/* Typography */
+body, input { font-family: "Helvetica", helvetica, "Helvetica Neue", arial, sans-serif; line-height: 1.3; }
+ul li, p, em, div { font-size: 13px; }
+h1, h2 { font-weight: normal; line-height: 1em;}
+h1 { font-size: 40px; }
+a { text-decoration: none; }
+
+/* Layout */
+body { padding: 10px 0 40px; margin: 0; }
+div#container { margin: 10px auto; width: 800px; padding: 5px 20px; text-align: left; }
+#filter, #pricelist, #share, #about { margin: 40px 0; }
+
+/* Form */
+#success { padding: 10px; background: #99cccc; font-size: 1.3em; text-align: center; }
+form { background: #ddd; padding: 20px; }
+form input.text, textarea { border: 1px solid #aaa; width: 200px; padding: 5px 10px; }
+form fieldset { border: none; background: #eee; }
+form textarea { width: 400px; height: 100px; }
+
+/* Price List */
+#pricelist { background: #efefef; padding: 20px; }
+#pricelist li { list-style: none; }
+#pricelist thead { background: #99cccc; font-weight: bold; }
+.locale { text-transform: capitalize; font-style: italic; }

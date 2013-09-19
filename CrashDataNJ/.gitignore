@@ -1,0 +1,7 @@
+tools/data/
+.DS_Store
+.*.swp
+lib_managed/
+target/
+project/boot/
+*.keep

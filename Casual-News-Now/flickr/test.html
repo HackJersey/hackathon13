@@ -1,0 +1,253 @@
+<html>
+<head>
+	<title>News</title>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="css/m-styles.min.css" rel="stylesheet"> 
+	<style>
+		html, body, h1, h2, p {
+			margin: 0px;
+			padding: 0px;
+		}
+		.levels {
+			display: none;
+			overflow: scroll;
+		}
+		#l1 {
+			position: static;
+			margin: 0px auto;
+			height: 2000px;
+			width: 4000px;
+			border: 50px solid #afa7a7;			
+		}
+		#l2 {
+			position: relative;
+			border: 2px solid #afa7a7;
+			/*-webkit-transform:rotate(180deg);
+			-moz-transform:rotate(180deg);*/
+		}
+		#l3 {
+			position: relative;
+			border: 1px solid #afa7a7;
+		}
+		#l4 {
+			position: relative;
+			/*border: 1px solid #afa7a7;*/
+			background-color: blue;
+		}		
+		#searchDiv {
+			margin-top: 100px;
+		}
+		#btnSearch {
+			height: 48px;
+			position: relative;
+			bottom: 3px;
+			border-radius: 2px;
+		}
+		#txtSearch {
+			width: 400px;
+			height: 50px;
+			font-size: 24px;
+		}
+		.items {
+			width: 200px;
+			height: 
+		}
+		items {
+			 -webkit-user-select:none;
+			 -moz-user-select:none;
+		}
+		
+		items {
+			 position:absolute;
+			 margin:5px;
+			 padding:10px;
+			 border:1px solid #aaa;
+			 background-color:#f8f8f8;
+			 width: 100px;
+			 height: 100px;
+		}
+		items:hover {
+			border-color: #33436B;
+		}		
+	</style>
+	
+</head>
+
+<body>
+	<!-- START container -->
+	<div class="container">
+		<!-- START search div -->
+		<div id="searchDiv" class="span12" align="center">
+			<input type="text" name="search" id="txtSearch" placeholder="Search your topic">
+			<input type="button" class="m-btn green" id="btnSearch" value="Start Search">
+		</div>
+		<!-- END search div -->
+		
+		<!-- Level 1 -->
+		<div id="l1" class="levels">
+
+			<!-- Level 2 -->
+			<div id="l2" class="levels">
+				
+				<!-- Level 3 -->
+				<div id="l3" class="levels">
+					
+					<!-- Level 4 -->
+					<div id="l4" class="levels">
+						
+					</div>
+					<!-- End Level 4 -->
+					
+				</div>
+				<!-- End Level 3 -->
+				
+			</div>
+			<!-- End Level 2 -->
+			
+		</div>
+		<!-- End Level 1 -->
+
+	</div>
+	<!-- END container -->
+	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.zoomooz.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/m-radio.min.js"></script>
+<script type="text/javascript">
+	 $(function() {
+		
+		$.zoomooz.setup({
+    		duration:1000,
+    		nativeanimation:true
+    	});
+		$('#btnSearch').click(function() {		 
+			resizeLevels(1);
+			corruptItems();
+			$('#searchDiv').hide();
+			$('#l1,#l2,#l3, #l4').show();
+			$("#l1").zoomTo({targetsize: .97});
+		});
+    	
+	 });
+	 
+	 
+	 function resizeLevels( option ) {
+		 width = 0;		// setting init width values
+		 height = 0;	// setting init height value
+		 
+		 switch(option) {
+			 case 1:
+			 
+			 /* Positioning Level 2 */
+				 l1w = $('#l1').width();
+				 l1h = $('#l1').height();
+				 
+				 // Setting the div 10x smaller than parent div
+				 $('#l2').width(l1w/10);
+				 $('#l2').height(l1h/10);
+				 
+				 l2w = $('#l2').width();
+				 l2h = $('#l2').height();
+				 ////////////
+				 
+				 //positioning
+				 $('#l2').css('top', '45%');
+				 $('#l2').css('left', '45%');
+				 ////////////	
+			
+				 
+			/* Positioning Level 3 */	 
+				 l2w = $('#l2').width();
+				 l2h = $('#l2').height();
+				 
+				 // Setting the div 10x smaller than parent div
+				 $('#l3').width(l2w/10);
+				 $('#l3').height(l2h/10);
+				 
+				 l3w = $('#l3').width();
+				 l3h = $('#l3').height();
+				 ////////////
+				 
+				 //positioning
+				 $('#l3').css('top', '45%');
+				 $('#l3').css('left', '45%');
+				 ////////////	
+				 
+			/* Positioning Level 4 */
+				 l2w = $('#l3').width();
+				 l2h = $('#l3').height();
+				 
+				 // Setting the div 10x smaller than parent div
+				 $('#l4').width(l2w/10);
+				 $('#l4').height(l2h/10);
+				 
+				 l3w = $('#l4').width();
+				 l3h = $('#l4').height();
+				 ////////////
+				 
+				 //positioning
+				 $('#l4').css('top', '45%');
+				 $('#l4').css('left', '45%');
+				 ////////////					 				 		 			 
+				 			 
+				 
+			 	break;
+			 case 2:
+			 	 
+				 
+			 	break;
+			 case 3:
+			 	break;
+		 }
+	 }
+	 
+	 function corruptItems() {
+	    for (var i =0; i<10; i++) {
+		    	var elem = $('<img class="items"/>');
+				elem.attr("src", "http://www.usphs.gov/images/home/facebook-logo.png");
+	            var parentElem = $("#l1");
+	            
+				var rot = "rotate(" + (Math.random() * 2 - 1) * 180 + "deg)";
+				
+				var margin = 20;
+	            var width = 10;
+	            var left = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var top = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var cssAttr = {"left":left,"top":top,"width":width+"%","opacity":0.0};
+				cssAttr["-webkit-transform"] = rot;
+				cssAttr["-o-transform"] = rot;
+				cssAttr["-moz-transform"] = rot;
+				elem.css(cssAttr);
+			
+				elem.click(function (evt) {
+					evt.stopPropagation();
+					$(this).zoomTo({targetsize: 0.7});
+					$("img").not(this).css({"z-index":1});
+					$(this).css({"z-index":2});
+				});
+				elem.appendTo("#l1").delay(500).animate({opacity:1.0},600);
+		}
+	 }
+	 
+	 
+	 $('#l3').click(function(evt) {
+		 evt.stopPropagation();
+		 $(this).zoomTo({targetsize: 0.90});
+	 });
+	 $("#l2").click(function(evt) {
+         evt.stopPropagation();
+         $(this).zoomTo({targetsize: 0.97});
+     });
+	 $("#l1").click(function(evt) {
+         evt.stopPropagation();
+         $(this).zoomTo({targetsize: 0.97});
+     });   
+     
+     
+     window.ondragstart = function() { return false };
+	 window.onselectstart = function() { return false };
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Streamer</title>
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+		<style>
+
+    #orig{ width: 300px; height: 100px; background-color: #AAA; padding:5px;}
+
+    .status{
+      padding: 5px;
+      border: 5px solid white;
+      position: absolute;
+      color: white;
+      background-color: rgba(50,50,50, .85);
+    }
+
+    #go{
+      background-color: #555;
+      color: white;
+      cursor: pointer;
+      padding: 3px;
+    }
+
+    #go:hover{
+      background-color: #333;
+    }		
+		
+		</style>
+	</head>
+	<body style="-webkit-transform-origin: 720px 339px; -webkit-transform: translate(2362.064516px, 1187.303226px) rotate(0rad) skewX(0rad) scale(4.180645, 4.180645);">
+		<div id="orig">
+		  <h3>Enter the search topic you want to <b>follow</b>.</h3>
+		  <input id="text" type="text">
+		  <span id="go">Stream!</span>
+		</div>
+
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="js/jquery.zoomooz.js"></script>
+<script>
+
+function go(){
+  var url = "http://search.twitter.com/search.json?callback=results&q=" + $("#text").val();
+  $("<script/>").attr("src", url).appendTo("body");  
+}
+
+$("#go").click(go);
+$("#text").keydown(function(e){ if( e.which == 13 )  go(); });
+
+function results(r){
+  window.results = r.results;
+  window.theIndex = 0;
+  displayNext();
+}
+
+function displayNext(){
+  if( window.theIndex >= window.results.length ){
+    $("body").zoomTo();
+    return;
+  }
+  
+  createDiv( window.results[window.theIndex] );
+  window.theIndex++;
+  setTimeout(displayNext, 4000);
+}
+
+function createDiv(status){
+  var size = (Math.random()+1)*30;
+    
+  $("<div class='status'>").css({
+    left: Math.random()*window.innerWidth,
+    top: Math.random()*window.innerHeight,
+    width: 500*Math.random()+5*size,
+    fontSize: size,
+    backgroundColor: "hsla(" + 360 * Math.random() + ", 40%, 50%,.8)",
+    "-moz-transform": "rotate(" + Math.random()*180 + "deg)",
+    "-webkit-transform" : "rotate(" + Math.random()*180 + "deg)"
+  })
+  .html(status.text)
+  .appendTo("body")
+  .zoomTo();
+}
+
+$("#orig").zoomTo();
+</script>
+
+</body>
+<style type="text/css">
+</style>
+
+</html>

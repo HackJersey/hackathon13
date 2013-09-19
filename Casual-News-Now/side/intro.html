@@ -1,0 +1,168 @@
+<html>
+<head>
+	<title>Level 5</title>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="css/m-styles.min.css" rel="stylesheet">
+    <link href="css/m-buttons.css" rel="stylesheet">
+    <link href="css/m-forms.min.css" rel="stylesheet"> 
+	<style>
+		html, body, h1, h2, p {
+			margin: 0px;
+			padding: 0px;
+		}
+		.levels {
+			display: none;
+			overflow: hidden;
+			z-index: 999;
+			background-color: white;
+		}
+		#searchDiv {
+			margin-top: 100px;
+		}
+		#btnSearch {
+			height: 48px;
+			position: relative;
+			bottom: 3px;
+			border-radius: 2px;
+		}
+		#txtSearch {
+			width: 400px;
+			height: 50px;
+			font-size: 24px;
+		}
+		.items {
+			margin: 30px;
+		}
+		.logo {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+		}
+		.logotext {
+			display: inline-block;
+			text-indent: 3px;
+			color: white;
+		}
+		.flickr {
+			overflow: hidden;
+			width: 200px;
+			height: 300px;
+			border: 5px solid black;
+			background-color: black;
+			border-radius: 4px;
+		}
+		.twitter {
+			overflow: scroll;
+			height: 100px;
+			width: 350px;
+			background-color: #9AE4E8;
+			padding: 10px;
+			border-radius: 8px;
+			border: 4px solid black;
+			
+		}
+		.tweetLogo {
+			width: 40px;
+			height: 40px;
+		}
+		.twiterUser {
+			font-weight: 700;
+			font-size: 25px;
+			
+		}
+		.tweet {
+			font-weight: 500;
+			margin-top: 10px;
+			font-size: 15px;
+			color: #575656;
+		}
+		.reddit {
+			overflow: scroll;
+			height: 100px;
+			width: 400px;
+			border: 5px solid black;
+			padding: 10px;
+			background-color: #336699;
+			border-radius: 6px;
+		}
+		.redditLogo {
+			height: 40px;
+			width: 40px;
+		}
+		.redditLink {
+			display: block;
+			color: white;
+			font-size: 17px;
+		}
+		.redditLink:hover {
+			color: #FF4500;
+		}
+		.redditLogoDiv h4 {
+			display: inline-block;
+			color: #f1f1f1;
+		}
+	</style>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<!-- START container -->
+	<div class="container">
+		<!-- START search div -->
+		<div id="searchDiv" class="span12" align="right">
+			<input type="text" name="search" id="txtSearch" placeholder="Search your topic">
+			<input type="button" class="m-btn green" id="btnSearch" value="Start Search">
+		</div>
+		<!-- END search div -->
+		
+		<br />
+		
+		<div class="items flickr span2">
+			<img class="logo" src="img/flickr.png" align="center" /><p class="logotext"> Flickr</p>
+			<div><img src="http://farm9.staticflickr.com/8086/8418815201_63409063cf.jpg" /></div>
+		</div>
+		
+		<br />
+		
+		<div class="items twitter span2">
+			<img class="logo tweetLogo" src="img/twitter.png" align="right" />		
+			<div class="twiterUser"><u>bickle96</u></div>
+			<div class="tweet">RT @hunterhouff: What are cats good for lol</div>
+		</div>
+		
+		<br />
+
+		<div class="items reddit span2">
+			<div class="redditLogoDiv"><h4>Reddit</h4><img class="logo redditLogo" src="img/reddit.png" align="right" /></div>
+			<a class="redditLink" href="http://www.reddit.com/r/cats/comments/q7j5h/a_year_ago_my_cat_was_hit_by_a_car_this_is_him/">A year ago my cat was hit by a car.... this is him today</a>		
+		</div>
+
+		
+	</div>
+	<!-- END container -->
+	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.zoomooz.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/m-radio.min.js"></script>
+<script type="text/javascript">
+	 $(function() {
+		
+		search = "";
+		
+		$.zoomooz.setup({
+    		duration:1000,
+    		nativeanimation:true
+    	});
+		$('#btnSearch').click(function() {
+			search = $('#txtSearch').val();
+		});
+    	
+	 });
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Casual News, Now</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+	<style>
+		.twitter {
+			overflow: scroll;
+			height: 100px;
+			width: 350px;
+			background-color: #9AE4E8;
+			padding: 10px;
+			border-radius: 8px;
+			border: 4px solid black;	
+		}
+		.flickr {
+			border: 8px solid black;
+			border-radius: 4px;
+		}
+		.tweetLogo {
+			width: 40px;
+			height: 40px;
+		}
+		.twiterUser {
+			font-weight: 700;
+			font-size: 25px;
+			
+		}
+		.tweet {
+			font-weight: 500;
+			margin-top: 10px;
+			font-size: 15px;
+			color: #575656;
+		}
+		.tweet:hover {
+			color: black;
+		}	
+	</style>
+	
+</head>
+
+<body>
+<div id="container">
+<label>Search Geolocated Flickr:</label><input id="searchtext" placeholder="any cool keyword">
+<div id="output"></div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.zoomooz.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    
+	    $.zoomooz.setup({
+	    	duration:1000,
+	    	nativeanimation:true
+	    });
+	
+	    $(document).keypress(function(evt) {
+	    	if (evt.keyCode==13) 
+	    		loadImages(true);
+	    });
+	    
+	    $("#searchtext").blur(function(evt){
+	    	loadImages(false);
+	    });
+	    
+	    var searchText = getUrlVars()["q"];
+	    
+	    if (searchText) {
+	        $("#searchtext").val(searchText);
+	        loadImages(false);
+	        $("body").zoomTo({targetsize: 1.0});
+	    }
+	});
+	
+	var previousSearchString = "";
+	var notLoaded = true;
+	
+	
+	function getUrlVars() {
+	    var vars = [];
+	    
+	    var hash;
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	    
+	    for (var i = 0; i < hashes.length; i++) {
+	        hash = hashes[i].split('=');
+	        vars.push(hash[0]);
+	        vars[hash[0]] = hash[1];
+	    }
+	    
+	    return vars;    
+	}
+	
+	function loadImages(forceImages) {
+	    var searchString = $("#searchtext").val();
+	    if (searchString=="") return;
+	    if (!forceImages && searchString==previousSearchString) 
+	    	return;
+	    previousSearchString = searchString;
+	    
+	    if (notLoaded) {
+	        notLoaded = false;
+	        
+	        $(window).click(function (evt) {
+			    evt.stopPropagation();
+		        $("body").zoomTo({targetsize: 1.0});
+			    $("#searchtext").focus();
+		    });
+		    $("body").zoomTo({targetsize: 1.0});
+		    $("#searchtext").focus();
+		
+		    $("#output").click(function(evt) {
+		        evt.stopPropagation();
+		        $(this).zoomTo({targetsize: 0.97});
+		    });
+	    }
+	    
+		var path = "http://api.flickr.com/services/feeds/photos_public.gne";
+		var params = "?tags="+searchString+"&tagmode=any&format=json&jsoncallback=?";
+		$("#output").text("");
+		$("#output").zoomTo({targetsize: 0.97});
+		$.getJSON(path+params, function (data) {
+		    $.each(data.items, function (i, item) {
+				var elem = $('<img class="items"/>');
+				var smallimg = item.media.m;
+				var fullimg = smallimg.replace("_m", "");
+				elem.attr("src", fullimg);
+	            var parentElem = $("#output");
+	            
+				var rot = "rotate(" + (Math.random() * 2 - 1) * 180 + "deg)";
+				
+				var margin = 20;
+	            var width = 10;
+	            var left = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var top = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var cssAttr = {"left":left,"top":top,"width":width+"%","opacity":0.0};
+				cssAttr["-webkit-transform"] = rot;
+				cssAttr["-o-transform"] = rot;
+				cssAttr["-moz-transform"] = rot;
+				elem.css(cssAttr);
+			
+				elem.click(function (evt) {
+					evt.stopPropagation();
+					$(this).zoomTo({targetsize: 0.7});
+					$("img").not(this).css({"z-index":1});
+					$(this).css({"z-index":2});
+				});
+				elem.appendTo("#output").delay(500).animate({opacity:1.0},600);
+			});
+			
+			window.ondragstart = function() { return false };
+			window.onselectstart = function() { return false };
+		});
+		
+
+		/* Getting data from Twitter
+		$.getJSON("http://search.twitter.com/search.json?callback=?&q="+searchString, function (data) {			
+			for (i=0; i<data.results.length; i++) {
+				var str = data.results[i].text;
+				if (str.indexOf(searchString) >= 0) {
+						elem = '<div class="items twitter span2"><img class="logo tweetLogo" src="img/twitter.png" align="right" /><div class="twiterUser"><u><a href="http://www.twitter.com/'+data.results[i].from_user+'">'+ data.results[i].from_user +'</a></u></div><div class="tweet">'+ data.results[i].text +'</div></div>';
+						
+						var parentElem = $("#output");
+					var rot = "rotate(" + (Math.random() * 2 - 1) * 180 + "deg)";
+				
+				var margin = 20;
+	            var width = 10;
+	            var left = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var top = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var cssAttr = {"left":left,"top":top,"width":width+"%","opacity":0.0};
+				cssAttr["-webkit-transform"] = rot;
+				cssAttr["-o-transform"] = rot;
+				cssAttr["-moz-transform"] = rot;
+				$('.twitter').css(cssAttr);
+			
+				$('.items').click(function (evt) {
+					evt.stopPropagation();
+					$(this).zoomTo({targetsize: 0.7});
+					$("img").not(this).css({"z-index":1});
+					$(this).css({"z-index":2});
+				});
+				
+				var html = $('#output').html() + elem;
+				$('#output').html(html);
+				
+				elem.appendTo("#output").delay(500).animate({opacity:1.0},600);
+				
+				}
+			}
+		}); */
+	}
+</script>
+</body>
+</html>

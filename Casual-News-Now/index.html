@@ -1,0 +1,272 @@
+<html>
+<head>
+	<title>Casual News, Now</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css" media="screen" />
+	
+	<style type="text/css">
+		html, body, h1, h2, p {
+			margin: 0px;
+			padding: 0px;
+		}
+		.levels {
+			display: none;
+			overflow: hidden;
+			z-index: 999;
+			background-color: white;
+		}
+		#searchDiv {
+			margin-top: 100px;
+		}
+		#btnSearch {
+			height: 48px;
+			position: relative;
+			bottom: 3px;
+			border-radius: 2px;
+			background-color: #35aa47;
+		}
+		#txtSearch {
+			width: 500px;
+			height: 50px;
+			font-size: 24px;
+		}		
+		.items {
+			margin: 30px;
+		}
+		.logo {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+		}
+		.logotext {
+			display: inline-block;
+			text-indent: 3px;
+			color: white;
+		}
+		.twitter {
+			overflow: scroll;
+			height: 100px;
+			width: 350px;
+			background-color: #9AE4E8;
+			padding: 10px;
+			border-radius: 8px;
+			border: 4px solid black;	
+		}
+		.flickr {
+			border: 8px solid black;
+			border-radius: 4px;
+		}
+		.tweetLogo {
+			width: 40px;
+			height: 40px;
+		}
+		.twiterUser {
+			font-weight: 700;
+			font-size: 25px;
+			
+		}
+		.tweet {
+			font-weight: 500;
+			margin-top: 10px;
+			font-size: 15px;
+			color: #575656;
+		}
+		.tweet:hover {
+			color: black;
+		}
+		.reddit {
+			overflow: scroll;
+			height: 100px;
+			width: 400px;
+			border: 5px solid black;
+			padding: 10px;
+			background-color: #336699;
+			border-radius: 6px;
+		}
+		.redditLogo {
+			height: 40px;
+			width: 40px;
+		}
+		.redditLink {
+			display: block;
+			color: white;
+			font-size: 17px;
+		}
+		.redditLink:hover {
+			color: #FF4500;
+		}
+		.redditLogoDiv h4 {
+			display: inline-block;
+			color: #f1f1f1;
+		}
+</style>
+	
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->	
+</head>
+
+<body>
+
+<div class="container">
+	<div id="top" class="span12">
+		<h1>Casual News, Now</h1>
+	</div>
+
+	<!-- START search div -->
+	<div id="searchDiv" class="span12" align="center">
+		<input type="text" name="search" id="txtSearch" placeholder="Search your topic or Enter your location">
+		<input type="button" class="m-btn green" id="btnSearch" value="Start Search">
+	</div>
+	<!-- END search div -->
+
+	
+	<div id="media" class="container"></div>
+
+	
+	<div id="footer" class="span12">
+	</div>
+	
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="js/jquery.zoomooz.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/youtubequery.js"></script>
+<script type="text/javascript">
+		
+	$(function() {
+	
+		search = "";
+    	
+    	$('#btnSearch').live('click',function() {
+			search = $('#txtSearch').val();
+			getData(search);
+			
+			$('#searchDiv').hide();
+			startAnimation();
+			//$("#l1").zoomTo({targetsize: .97});
+		});
+		
+		$(document).keypress(function(evt) {
+	    	if (evt.keyCode==13) {
+				search = $('#txtSearch').val();
+				getData(search);
+				
+				$('#searchDiv').hide();
+				startAnimation();		    	
+	    	}
+	    });
+	    
+	    (window).click(function (evt) {
+			 evt.stopPropagation();
+		     $("body").zoomTo({targetsize: 1.0});
+		 });
+
+		
+	});
+	
+	function startAnimation() {
+		$.each('.items', function(index, records) {
+			
+			
+		});
+	}
+	
+	function getData(query) {
+	
+		// The array that will hold all the media objects
+		flickr = new Array;
+		twitter = new Array;
+		youtube = new Array;
+		reddit = new Array;
+	
+		// Getting data from Flickr
+		var path = "http://api.flickr.com/services/feeds/photos_public.gne";
+		var params = "?tags="+query+"&tagmode=any&items=50&format=json&jsoncallback=?";
+		$.getJSON(path+params, function (data) {
+		    $.each(data.items, function (i, item) {
+				var elem = $('<img class="items flickr" />');
+				var smallimg = item.media.m;
+				var fullimg = smallimg.replace("_m", "");
+				elem.attr("src", fullimg);
+	            var parentElem = $("#media");
+	            
+				var rot = "rotate(" + (Math.random() * 2 - 1) * 180 + "deg)";
+				
+				var margin = 20;
+	            var width = 10;
+	            var left = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var top = margin+Math.round(Math.random()*(100-2*margin-width))+"%";
+				var cssAttr = {"left":left,"top":top,"width":width+"%","opacity":0.0};
+				cssAttr["-webkit-transform"] = rot;
+				cssAttr["-o-transform"] = rot;
+				cssAttr["-moz-transform"] = rot;
+				elem.css(cssAttr);
+			
+				flickr.push(elem);
+				
+				$(elem).click(function (evt) {
+					evt.stopPropagation();
+					$(this).zoomTo({targetsize: 1.0});
+					$("img").not(this).css({"z-index":1});
+					$(this).css({"z-index":2});
+				});
+			});
+			
+			$.each(flickr, function(i, k) {
+				$(k).appendTo('#media').delay(500).animate({opacity:1.0},600);;
+			});
+		});
+		
+		
+		// Getting data from Twitter
+		$.getJSON("http://search.twitter.com/search.json?callback=?&q="+query, function (data) {
+			for (i=0; i<data.results.length; i++) {
+				var str = data.results[i].text;
+				if (str.indexOf(query) >= 0) {
+						elem = '<div class="items twitter span2"><img class="logo tweetLogo" src="img/twitter.png" align="right" /><div class="twiterUser"><u><a href="http://www.twitter.com/'+data.results[i].from_user+'">'+ data.results[i].from_user +'</a></u></div><div class="tweet">'+ data.results[i].text +'</div></div>';
+					twitter.push(elem);
+					
+				}
+			}
+			$.each(twitter, function(i, k) {		
+				$(k).appendTo('#media').delay(500).animate({opacity:1.0},600);
+			});
+		});			
+		
+
+		/* Getting data from Youtube
+		jQTubeUtil.search(query, function(response){
+			
+			for (i = 0; i < response.videos.length; i++) {
+				var url = response.videos[i].entry.link[0].href;
+				youtube.push(url);
+			}
+			$.each(youtube, function(i, k) {
+				$('#frame').attr('src', k);
+			});
+		});*/
+
+
+		// Getting data from Reddit
+		$.get('scripts/getReddit.php', {query:query}, function(data) {
+			var obj = jQuery.parseJSON(data);
+			for (var i=0;i<15;i++) {
+				link = obj[i].link;
+				title = obj[i].title;
+				elem = '<div class="items reddit span2"><div class="redditLogoDiv"><h4>Reddit</h4><img class="logo redditLogo" src="img/reddit.png" align="right" /></div><a class="redditLink" href="'+link+'">'+title+'</a>	</div>';
+				reddit.push(elem);
+				
+			}
+			$.each(reddit, function(i, k) {
+				$(k).appendTo('#media').delay(500).animate({opacity:1.0},600);
+			});
+		});
+
+	}
+</script>
+</body>
+</html>

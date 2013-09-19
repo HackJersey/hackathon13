@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}HeadHub App{% endblock %}
+
+{% block js %}
+
+
+
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"  
+          type="text/javascript"></script> 
+<script type="text/javascript" src="/static/js/shout.js"></script>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div id="yes-location">
+  
+  <div id="post">
+  
+    <div id="map"><img /></div>
+
+    <div id="shout-form">
+      <form name="shout" id="shout">
+        <p>
+          <label for="author">Scan Starting Date</label><br />
+          <input type="text" name="author" id="author" />
+        </p>
+        <p>
+          <label for="message">Scan Ending Date</label><br />
+          <input type="text" name="message" id="message" />
+        </p>
+
+        <p>
+          <label for="keywords">Scan Key Words</label><br />
+          <input type="text" name="keywords" id="keywords" />
+        </p>
+
+        <p>          
+        <!--   <textarea name="message" id="message"></textarea>
+        </p>
+        <p class="error"></p>
+        <p> -->
+          <input type="submit" name="submit" value="SUBMIT!" />
+        </p>
+      </form>
+    </div>
+  
+  </div>
+  
+  <div id="view">
+    
+    <div id="control">
+      <form name="update_radius" id="update_radius">
+        <input type="text" name="radius" id="radius" value="1" />
+        <input type="submit" name="submit" value="ANNOUNCEMENTS" />
+      </form>
+    </div>
+    
+    <div id="People"></div>
+    
+  </div>
+  
+  <div style="clear:both;"></div>
+
+</div>
+
+<div id="no-location">Ah darn, we couldn't get your location!</div>
+{% endblock %}
